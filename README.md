@@ -1,48 +1,113 @@
-# Project Name
+# Recipe App (working title)
 
 ## Description
 
-Describe your project in one/two lines.
+A deligtful way to digitally organise and discover cooking recipes that allows for later add-ons such as sustainability tracking, nutrition insights, or food cost management.
 
 ## User Stories
 
 -  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
--  **Signup:** As an anon I can sign up in the platform so that I can start saving favorite restaurants
--  **Login:** As a user I can login to the platform so that I can see my favorite restaurants
+-  **Signup:** As an anon I can sign up in the platform so that I can start saving recipies
+-  **Login:** As a registered user I can login to the platform so that I can see recipes
 -  **Logout:** As a user I can logout from the platform so no one else can use it
--  **Add Restaurants** As a user I can add a restaurant so that I can share it with the community
--  **List Restaurants** As a user I want to see the restaurants so that I can choose one to eat
--  **Search Restaurants** As a user I want to search restaurants by name so that I know if it´s already in the platform
--  **Add to favorites** As a user I want to add a restaurant to favorite so that I can save the restaurants that I liked the most
--  **See my favorites** As a user I want to see my favorite restaurantes so that I can see the ones I liked the most
+-  **Add Recipes** As a user I can add a recipe so that I can share it with the community/save it for myself
+-  **Delete Recipes** As a user I can delete a recipe.
+-  **Discover Recipes** As a user I want to see an overview of recipes so that I can choose one to cook
+-  **Search & Filter Recipes** As a user I want to search recipes by name/ingredient/cuisine
+-  **Edit Recipes** As a user I want to be able to edit my recipes, so that I can add information once I have cooked/tested the recipe
 
 ## Backlog
 
 User profile:
-- see my profile
+- see my profile with some info
 - upload my profile picture
 - see other users profile
-- list of events created by the user
-- list events the user is attending
+- list of recipes created by the user
 
-Geo Location:
-- add geolocation to events when creating
-- show event in a map in event detail page
-- show all events in a map in the event list page
+Favourites
 
-Homepage:
-- ...
+- Add recipes as favourites
+- See favourites
+
+Info Tile:
+- Add additional info based on recipe data, such as sustainability score & visualisation, economics, nutrition
+
+Scaling
+
+- Scaling ingredients and serving sizes
+
+Import
+
+- Data import option from link (web scraping)
+
+- Connect to recipe API
   
-# Client
+  
+## Routes
+| Method | Path | Component | Permissions | Behavior |
+|--------|--| -------|--------|--------|
+| `get`  | `/` | HomePageComponent| public | just promotional copy + login |
+| `post` | `/auth/signup` | SignupPageComponent| public | signup form, link to login, navigate to homepage after signup|
+| post`  | `/auth/logout` | n/a                   | Logged-in only | navigate to homepage after logout, expire session            |
+|        |                |                       |                |                                                              |
+| get    | /recipes`      | Overview view         | Logged-in only | Render list of all recipes                                   |
+| `post  | /recipes       | Overview view         | Logged-in only | Render list of filtered                                      |
+| get    | /add/          | Edit view             | Logged-in only | Render edit form (pre-populated if navigating from )         |
+| get    | /add/:id       | Edit view             | Logged-in only | Render edit form prepopulated                                |
+| post   | /add           | Edit view             | Logged-in only | Submit form, navigate to new recipe                          |
+| put    | /add/id        | Edit view             | Logged-in only | Submit/update form, navigate to updated                      |
+| delete | /add/:id       | Edit view             | Logged-in only | Submit/update form, navigate to overview                     |
+| `get`  | `**`           | NotFoundPageComponent | public         |                                                              |
 
-## Pages
 
-| url | public | Functionality |
-|-----|-------|---------------|
-| `/` | true | landing page |
-| `/signup` | true | Signup user |
-| `/login` | true | login user |
-| `/profile` | false | profile of user |
+## Components
+
+- Recipe view
+  
+  - Description tile
+  
+    - Meta info
+    - Tags
+    - Comments
+    - Edit/bookmark buttons
+  
+  - Ingredients tile
+  
+  - Method tile
+  
+  - Info tile (optional)
+  
+    
+  
+- Overview view
+  
+  - Filter tile
+  - Results grid
+    - Recipe card
+  
+- Home view
+
+  - Landing page wrapper
+  - Login form
+
+- Signup view
+
+  - Signup form
+
+- Recipe edit view
+
+  - Description form
+
+  - Ingredients form
+
+  - Method form
+
+  - Image upload
+
+    
+
+  
+
 
 ## Services
 
@@ -52,13 +117,14 @@ Homepage:
   - auth.logout()
   - auth.me()
   - auth.getUser() // synchronous
-- Restaurant Service
-  - restaurant.list()
-  - restaurant.search(terms)
-  - restaurant.create(data)
-  - restaurant.detail(id)
-  - restaurant.addFavorite(id)
-  - restaurant.removeFavorite(id)   
+- Recipe Service
+  - recipe.list()
+  - recipe.search(terms)
+  - recipe.filter(tags)
+  - recipe.create(data)
+  - recipe.detail(id)
+  - (recipe.addFavorite(id))
+  - (recipe.removeFavorite(id)) 
 
 # Server
 
@@ -70,34 +136,109 @@ User model
 username - String // required
 email - String // required & unique
 password - String // required
-favorites - [ObjectID<Restaurant>]
+reciped - [ObjectID<Recipes>]
+favorites - [ObjectID<Recipes>]
 ```
 
-Restaurant model
+Recipe model
 
 ```
-owner - ObjectID<User> // required
+creator - ObjectID<User> // required
 name - String // required
-phone - String
-address - String
+description - String
+images - [String(url), String(url)]
+tags - [{
+	diet: String (enum)
+	component: 
+	type: 
+	cuisine: 
+	mainIngredient: [String, String]
+}]
+comments - [{
+	creator - ObjectID<User> // required
+	text - String
+	date - Number
+}]
+
+yield - {
+quantityPrimary: Number
+unitPrimary: String
+quantitySecondary: Number
+unitSecondary: String
+}
+ingredients - [{
+ 	name: String
+ 	quantity: Number
+ 	unit: String
+	prep: String
+	comment: String
+	category: String (enum)
+}]
+
+method - [String, String]
 ```
+
+
 
 ## API Endpoints (backend routes)
 
-## API routes:
+- GET /auth/me
+  - 404 if no user in session
+  - 200 with user object
+- POST /auth/signup
+  - 401 if user logged in
+  - body:
+    - username
+    - email
+    - password
+  - validation
+    - fields not empty (422)
+    - user not exists (409)
+  - create user with encrypted password
+  - store user in session
+  - 200 with user object
+- POST /auth/login
+  - 401 if user logged in
+  - body:
+    - username
+    - password
+  - validation
+    - fields not empty (422)
+    - user exists (404)
+    - passdword matches (404)
+  - store user in session
+  - 200 with user object
+- POST /auth/logout
+  - body: (empty)
+  - 204
 
-### auth
-|Method|Route|Functionality|
-|---|---|---|
-|GET|api/auth/me|Check session status|
-|POST|api/auth/signup|Log in user to app and set user to session (Body: username, password)|
-|POST|api/auth/login|Register user to app and set user to session (Body: username, password)|
-|POST|api/auth/logout|Log out user from app and remove session|
+- GET /recipes?terms=foo
+  - use search criteria if terms provided
+  - 200 with array of restaurants
+  
+- POST /recipe => Made it to add since this is the correpsonding route, no?
+  - body:
+    - Name
+    - Description
+    - Ingredients
+    - Method
+    - …. (+ optional)
+  - validation
+    - fields not empty
+  - create recipe
+  - 200 with recipe not empty 
+  
+- GET /recipe/:id
+
+- PUT /recipe/:id
+
   
 
 ## Links
 
 ### Trello/Kanban
+
+Design: https://www.figma.com/file/WsOficbHgmyLeI0tZgp4njX0/Recipe-App?node-id=1%3A33
 
 [Link to your trello board](https://trello.com) or picture of your physical board
 
@@ -105,13 +246,10 @@ address - String
 
 The url to your repository and to your deployed project
 
-[Client repository Link](https://github.com/Ironhack-PartTime-BCN/boilerplate-frontend-module-3)
+[Client repository Link](http://github.com)
+[Server repository Link](http://github.com)
 
-[Server repository Link](https://github.com/Ironhack-PartTime-BCN/boilerplate-backend-module-3)
-
-[Deploy Link Backend](http://heroku.com)
-
-[Deploy Link Frontend]()
+[Deploy Link](http://heroku.com)
 
 ### Slides
 
