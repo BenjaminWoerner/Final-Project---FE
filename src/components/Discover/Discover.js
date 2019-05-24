@@ -3,6 +3,7 @@ import RecipeCard from './RecipeCard';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import recipeCard from './RecipeCard';
 
 class DiscoverView extends Component {
   constructor(){
@@ -25,13 +26,19 @@ class DiscoverView extends Component {
 
   render() {
     return (
-      <div>
-      {
-        this.state.allRecipes.map((oneRecipe, index) => {
-          return <RecipeCard key={index} {...oneRecipe} />
-        })
-      }
-    </div>
+      <div >
+    
+        {this.state.allRecipes.map((oneRecipe, index) => {
+          return (
+            <div key={oneRecipe._id}>
+            <Link to={`/recipes/${oneRecipe._id}`}> 
+            <RecipeCard key={index} {...oneRecipe} />
+            </Link> 
+            </div>    
+          )
+        })}
+       
+      </div>
     );
   }
 }
