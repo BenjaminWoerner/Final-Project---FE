@@ -38,6 +38,7 @@ class AuthProvider extends Component {
     auth
       .me()
       .then(user => {
+      
         this.setState({
           isLoggedin: true,
           user,

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import '../../pages/styles.css';
+import { Redirect } from "react-router-dom";
+import db from '../../lib/db-service.js';
 
 export default class Form extends Component {
   constructor(props){
@@ -14,14 +16,16 @@ export default class Form extends Component {
     }
   }
   
+  
+
   handleFormSubmit = (event) => {
+    console.log(this.state);
     event.preventDefault();
-    
     const {name, description, image, ingredients, methods} = this.state; 
-    axios.post("http://localhost:5000/api/add", { name, description, image, ingredients, methods })
-   
-    .then( () => {
-        // this.props.getData();
+    db.postRecipe({name, description, image, ingredients, methods})
+    
+
+    .then( (body) => {
         this.setState({
           name: "", 
           description: "", 
@@ -29,6 +33,10 @@ export default class Form extends Component {
           ingredients: "",
           methods: ""
         });
+        console.log(body);
+        const {_id} = body.data;
+        this.props.history.push(`/recipes/${_id}`)
+        
     })
     .catch( error => console.log(error) )
   }
@@ -40,6 +48,7 @@ export default class Form extends Component {
   
   
   render() {
+    console.log(this.state)
     return (
     <div className="recipe-form">
       <form onSubmit={this.handleFormSubmit}>

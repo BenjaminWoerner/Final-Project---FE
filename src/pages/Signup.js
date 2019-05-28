@@ -21,7 +21,7 @@ class Signup extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <div>
+      <div className="home-box">
         <form onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
           <input

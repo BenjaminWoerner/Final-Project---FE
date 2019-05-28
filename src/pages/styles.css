@@ -6,3 +6,50 @@
   flex-wrap: wrap;
   background-color: aquamarine
 }
+
+.home-box {
+  width: 50%;
+  height: 50%;
+  border: solid 1px black;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 25%
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 40px;
+}
+
+.top-nav {
+  background-color: lightgreen;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 30px;
+
+}
+
+.recipe-card {
+  display: flex;
+  width: 150px;
+  height: 170px;
+  border: solid 1px black;
+  flex-wrap: wrap;
+  margin: 2px;
+  padding: 10px;
+
+
+}
+
+.card-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-around;
+}

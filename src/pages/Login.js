@@ -21,6 +21,7 @@ class Login extends Component {
   render() {
     const { username, password } = this.state;
     return (
+      <div className="home-box">
       <form onSubmit={this.handleFormSubmit}>
         <label>Username:</label>
         <input
@@ -38,6 +39,7 @@ class Login extends Component {
         />
         <input type="submit" value="Login" />
       </form>
+      </div>
     );
   }
 }

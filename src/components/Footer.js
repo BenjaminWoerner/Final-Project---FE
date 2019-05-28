@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-class Navbar extends Component {
+import './../pages/styles.css';
+
+class Footer extends Component {
   render() {
     const { user, logout, isLoggedin } = this.props;
     return (
-      <div>
+      <div className="footer">
         {isLoggedin ? (
           <>
+            
+            <button onClick={logout}>Logout</button>
           </>
         ) : (
           <>
-          <div className="home-box">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
-            </div>
+      
           </>
         )}
       </div>
@@ -22,4 +23,4 @@ class Navbar extends Component {
   }
 }
 
-export default withAuth(Navbar);
+export default withAuth(Footer);
