@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import '../../pages/styles.css';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link} from "react-router-dom";
 import db from '../../lib/db-service.js';
 
 export default class Form extends Component {
@@ -50,26 +50,43 @@ export default class Form extends Component {
   render() {
     console.log(this.state)
     return (
-    <div className="recipe-form">
+    
+    <div>
+
+    <div className="top-nav">
+
+<Link to={`/recipes`}>
+  <button>BACK</button>
+  </Link>
+
+  
+</div>
+    
+    
+    
+    
+    <div className="signup home-box form">
       <form onSubmit={this.handleFormSubmit}>
        
         <label>Name:</label><br />
         <input type="text" name="name" value={this.state.name} onChange={ e => this.handleChange(e)}/><br />
         
-        <label>Description:</label><br />
-        <input  type="text" name="description" value={this.state.description} onChange={ e => this.handleChange(e)} /><br />
+        <br /><label>Description:</label><br />
+        <textarea  type="text" name="description" value={this.state.description} onChange={ e => this.handleChange(e)} /><br />
         
-        <label>image:</label><br />
+        <br /><label>Image:</label><br />
+        <input  type="text" name="image" value={this.state.image} onChange={ e => this.handleChange(e)} /><br />
    
-        <label>Ingredients:</label><br />
-        <input type="text" name="ingredients" value={this.state.ingredients} onChange={ e => this.handleChange(e)}/><br />
+        <br /><label>Ingredients:</label><br />
+        <textarea type="text" name="ingredients" value={this.state.ingredients} onChange={ e => this.handleChange(e)}/><br />
 
-        <label>Methods:</label><br />
-        <input type="text" name="methods" value={this.state.methods} onChange={ e => this.handleChange(e)}/><br />
+        <br /><label>Methods:</label><br />
+        <textarea type="text" name="methods" value={this.state.methods} onChange={ e => this.handleChange(e)}/><br />
 
-        <input type="submit" value="Submit" /><br />
+        <input className="button" type="submit" value="Submit" /><br />
       
       </form>
+    </div>
     </div>
     )
   }

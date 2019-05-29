@@ -73,30 +73,46 @@ export default class FormEdit extends Component {
     console.log(this.props);
     const { _id, description, image, name, ingredients, methods} = this.state.theRecipe;
     return (
-    <div className="recipe-form">
+   <div>
+   
+   <div className="top-nav">
+      <Link to={`/recipes/${this.state.theRecipe._id}`}>
+        <button>BACK</button>
+      </Link>
+    </div>
+    
+   
+    <div className="signup home-box form">
       <form onSubmit={this.handleFormSubmit}>
        
+
+
+
         <label>Name:</label><br />
         <input type="text" name="name" value={name} onChange={ e => this.handleChange(e)}/><br />
         
         <label>Description:</label><br />
-        <input  type="text" name="description" value={description} onChange={ e => this.handleChange(e)} /><br />
+        <textarea  type="text" name="description" value={description} onChange={ e => this.handleChange(e)} /><br />
         
         <label>image:</label><br />
+        <input  type="text" name="image" value={this.state.image} onChange={ e => this.handleChange(e)} /><br />
+   
    
         <label>Ingredients:</label><br />
-        <input type="text" name="ingredients" value={ingredients} onChange={ e => this.handleChange(e)}/><br />
+        <textarea type="text" name="ingredients" value={ingredients} onChange={ e => this.handleChange(e)}/><br />
 
         <label>Methods:</label><br />
-        <input type="text" name="methods" value={this.state.methods} onChange={ e => this.handleChange(e)}/><br />
+        <textarea type="text" name="methods" value={this.state.methods} onChange={ e => this.handleChange(e)}/><br />
 
-        <input type="submit" value="Submit" /><br />
+        <input className="button" type="submit" value="Submit" /><br />
         
         
-        <Link to={`/recipes/${this.state._id}`}>Back</Link>
+       
       
       </form>
-        <button onClick={() => this.deleteRecipe(_id)}>DELETE</button>
+        <button className="button" onClick={() => this.deleteRecipe(_id)}>Delete</button>
+    </div>
+
     </div>
     )
   }

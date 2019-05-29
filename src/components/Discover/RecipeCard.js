@@ -3,10 +3,13 @@ import './../../pages/styles.css'
 
 const recipeCard = ({ name, description, image }) => {
   return (
+    <div>
     <div className="recipe-card">
-      <img src={image}></img>
+      <img src={image} alt="no image :("></img>
+      <div className="cardText">
       <h2>{name}</h2>
-      <p>{description}</p>
+      </div>
+      </div>
     </div>
   )
 };
