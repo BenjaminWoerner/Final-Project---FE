@@ -33,8 +33,16 @@ class Recipe extends Component {
   }
 
   render(){
-    console.log(this.state);
+    
     const { _id, description, image, name, ingredients, methods} = this.state.theRecipe;
+    
+    const sectionStyle = {
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      height: "250px",
+      backgroundImage: `url(${image})`
+    }
+    
     return(
       <div>
         
@@ -53,11 +61,13 @@ class Recipe extends Component {
       </div>
 
 
-
+        <section style={ sectionStyle} />
         <h2>{name}</h2>
         <p>{description}</p>
+        <br /> <br />
         <h3>Ingredients</h3>
         <p>{ingredients}</p>
+        <br /> <br />
         <h3>Method</h3>
         <p>{methods}</p>
 
