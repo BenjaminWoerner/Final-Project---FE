@@ -40,7 +40,7 @@ class Recipe extends Component {
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
       height: "250px",
-      backgroundImage: `url(${image})`
+      backgroundImage: `url(${image? image : require("./../../74043937-fast-food-set-burger-fries-drink-and-sauce-retro-comic-book-style-pop-art-retro-illustration-color-v.jpg")})`
     }
     
     return(
@@ -49,12 +49,12 @@ class Recipe extends Component {
       <div className="top-nav">
 
       <Link to={`/recipes`}>
-        <button>BACK</button>
+        <button><b>BACK </b></button>
         </Link>
 
 
         <Link to={`/add/${_id}`}> 
-        <button>EDIT</button>
+        <button><b>EDIT</b></button>
         </Link>
 
         

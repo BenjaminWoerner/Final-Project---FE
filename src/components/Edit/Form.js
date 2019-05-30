@@ -56,7 +56,7 @@ export default class Form extends Component {
     <div className="top-nav">
 
 <Link to={`/recipes`}>
-  <button>BACK</button>
+  <button> <b>BACK</b></button>
   </Link>
 
   

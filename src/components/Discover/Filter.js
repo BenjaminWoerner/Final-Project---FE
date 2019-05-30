@@ -7,8 +7,8 @@ export default class Filter extends Component {
     return (
       <div className="top-nav">
         <Link to="/add">
-          <button className="add-button">
-          Add Recipe!
+          <button className="button">
+          <b>ADD RECIPE!</b>
           </button>
         </Link>
       </div>
